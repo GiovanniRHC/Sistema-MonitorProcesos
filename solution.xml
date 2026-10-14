@@ -1,0 +1,105 @@
+<ImportExportXml version="9.2.26094.142" SolutionPackageVersion="9.2" languagecode="3082" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26094.142" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26094.00146">
+  <SolutionManifest>
+    <UniqueName>PARPA04MonitorProcesos</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="PA-RPA04-MonitorProcesos" languagecode="3082" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>1.0.0.2</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>rpaempresa</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="RPA Empresa" languagecode="3082" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher para soluciones RPA" languagecode="3082" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>rpa</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>91347</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="29" id="{8ce93c7c-ae9b-4109-bee1-00f3df49f6b4}" behavior="0" />
+      <RootComponent type="29" id="{b32ef34e-d6cd-42e8-9b16-19765b32334d}" behavior="0" />
+      <RootComponent type="29" id="{d07e3ff6-24a3-f111-b8dd-7ced8da891fe}" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="desktopflowbinary" solution="Active" id="{00d94f03-47e9-4913-a85c-aa62aa311dff}" />
+        <Dependent type="29" displayName="PRD-RPA04-01-UpdateStatusBot" id="{8ce93c7c-ae9b-4109-bee1-00f3df49f6b4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="desktopflowbinary" solution="Active" id="{176215e1-f19f-4161-839c-1be6c6737152}" />
+        <Dependent type="29" displayName="PRD-RPA04-01-UpdateStatusBot" id="{8ce93c7c-ae9b-4109-bee1-00f3df49f6b4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="desktopflowbinary" solution="Active" id="{9b1cfe57-5e7f-4445-96cd-896a7d1b847b}" />
+        <Dependent type="29" displayName="PRD-RPA04-01-UpdateStatusBot" id="{8ce93c7c-ae9b-4109-bee1-00f3df49f6b4}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="desktopflowbinary" solution="Active" id="{e54cbbae-8b78-4630-8a70-3def0044c766}" />
+        <Dependent type="29" displayName="PRD-RPA04-01-UpdateStatusBot" id="{8ce93c7c-ae9b-4109-bee1-00f3df49f6b4}" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

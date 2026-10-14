@@ -1,0 +1,1098 @@
+{
+  "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+  "Definition": {
+    "Id": "/providers/Microsoft.PowerApps/apis/shared_office365",
+    "Name": "shared_office365",
+    "Properties": {
+      "IsCustomApi": false,
+      "Swagger": {
+        "basePath": "/apim/office365",
+        "definitions": {
+          "ClientSendHtmlMessage": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "To": {
+                "additionalProperties": null,
+                "x-ms-dynamic-list": {
+                  "builtInOperation": "AadGraph.GetUsers",
+                  "itemValuePath": "mail",
+                  "parameters": {}
+                },
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Especifique las direcciones de correo electrónico separadas por punto y coma como alguien@contoso.com",
+                "format": "email",
+                "x-ms-summary": "A",
+                "x-ms-name-for-model": "send_email_v2_to",
+                "x-ms-description-for-model": "Set to the primary recipient email address or addresses, separated by semicolons. Example: alice@example.com;bob@example.com."
+              },
+              "Subject": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Especifique el asunto del correo.",
+                "x-ms-summary": "Asunto",
+                "x-ms-name-for-model": "send_email_v2_subject",
+                "x-ms-description-for-model": "Set to a short, specific subject that matches the email's purpose, deriving it from the user intent, instructions, or conversation if not given. Example: Weekly Project Status Update, Please Submit Outstanding Invoices, Quarterly Town Hall - Thursday 3 PM"
+              },
+              "Body": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Especifique el cuerpo del correo.",
+                "format": "html",
+                "x-ms-summary": "Cuerpo",
+                "x-ms-name-for-model": "send_email_v2_body",
+                "x-ms-description-for-model": "Set to the full email body as HTML or plain text using details from the conversation. Example: Hi team,<br/>Please review the attached proposal by Friday…<br/>Thanks!."
+              },
+              "From": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Dirección de correo electrónico desde la que se enviará el correo (requiere el permiso \"Enviar como\" o \"Enviar en nombre de\" para el buzón en cuestión). Para obtener más información sobre la concesión de permisos, consulte https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list",
+                "format": "email",
+                "x-ms-summary": "Remitente (enviar como)",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_from",
+                "x-ms-description-for-model": "Set to the sender mailbox address when the email must come from a different email address. Example: billing@example.com."
+              },
+              "Cc": {
+                "additionalProperties": null,
+                "x-ms-dynamic-list": {
+                  "builtInOperation": "AadGraph.GetUsers",
+                  "itemValuePath": "mail",
+                  "parameters": {}
+                },
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Especifique las direcciones de correo electrónico separadas por punto y coma como alguien@contoso.com",
+                "format": "email",
+                "x-ms-summary": "CC",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_cc",
+                "x-ms-description-for-model": "Set to CC recipient email addresses when others should visibly receive a copy, separated by semicolons. Example: manager@example.com;pm@example.com."
+              },
+              "Bcc": {
+                "additionalProperties": null,
+                "x-ms-dynamic-list": {
+                  "builtInOperation": "AadGraph.GetUsers",
+                  "itemValuePath": "mail",
+                  "parameters": {}
+                },
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Especifique las direcciones de correo electrónico separadas por punto y coma como alguien@contoso.com",
+                "format": "email",
+                "x-ms-summary": "CCO",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_bcc",
+                "x-ms-description-for-model": "Set to BCC recipient email addresses when others should receive a hidden copy, separated by semicolons. Example: audit@example.com;compliance@example.com."
+              },
+              "Attachments": {
+                "additionalProperties": null,
+                "example": null,
+                "items": {
+                  "additionalProperties": null,
+                  "example": null,
+                  "$ref": "#/definitions/ClientSendAttachment",
+                  "default": null
+                },
+                "type": "array",
+                "default": null,
+                "description": "Datos adjuntos",
+                "x-ms-summary": "Datos adjuntos",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_attachments",
+                "x-ms-description-for-model": "Set to the attachments to send when the user provides a file(s)."
+              },
+              "Sensitivity": {
+                "additionalProperties": null,
+                "x-ms-dynamic-list": {
+                  "itemTitlePath": "DisplayName",
+                  "itemValuePath": "Id",
+                  "operationId": "GetSensitivityLabels",
+                  "parameters": {}
+                },
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Confidencialidad",
+                "x-ms-summary": "Confidencialidad",
+                "x-ms-visibility": "important",
+                "x-ms-name-for-model": "send_email_v2_sensitivity",
+                "x-ms-description-for-model": "Set to the Outlook sensitivity label ID when information protection is required. This is a tenant-specific label from Microsoft 365 sensitivity labels."
+              },
+              "ReplyTo": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Las direcciones de correo electrónico que se usarán al responder",
+                "format": "email",
+                "x-ms-summary": "Responder a",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_reply_to",
+                "x-ms-description-for-model": "Set to the email address or addresses, separated by semicolons, where replies should go if different from the sender's email address. Example: support@example.com;helpdesk@example.com."
+              },
+              "Importance": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": "Normal",
+                "description": "Importancia",
+                "enum": [
+                  "Low",
+                  "Normal",
+                  "High"
+                ],
+                "x-ms-summary": "Importancia",
+                "x-ms-visibility": "advanced",
+                "x-ms-name-for-model": "send_email_v2_importance",
+                "x-ms-description-for-model": "Set to the email importance when urgency is stated or implied. Choose ONLY between Low, Normal, High. Example: 'High' for urgent requests."
+              }
+            },
+            "required": [
+              "To",
+              "Subject",
+              "Body"
+            ],
+            "type": "object",
+            "default": null,
+            "description": "Enviar mensaje de correo electrónico HTML"
+          },
+          "ClientSendAttachment": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "Name": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Nombre de datos adjuntos",
+                "x-ms-summary": "Nombre",
+                "x-ms-name-for-model": "office365users_clientsendattachment_name",
+                "x-ms-description-for-model": "Set to the attachment file name the recipient will see when sending an attachment, including extension. Example: request-details.pdf."
+              },
+              "ContentBytes": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Contenido de datos adjuntos",
+                "format": "byte",
+                "x-ms-summary": "Contenido",
+                "x-ms-name-for-model": "office365users_clientsendattachment_content_bytes",
+                "x-ms-description-for-model": "Set to the attachment file content as bytes, usually a base64 string from a previous action such as Get file content. Use only when sending an attachment."
+              }
+            },
+            "required": [
+              "Name",
+              "ContentBytes"
+            ],
+            "type": "object",
+            "default": null,
+            "description": "Datos adjuntos"
+          },
+          "BatchResponse[GraphClientReceiveMessage]": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "value": {
+                "additionalProperties": null,
+                "example": null,
+                "items": {
+                  "additionalProperties": null,
+                  "example": null,
+                  "$ref": "#/definitions/GraphClientReceiveMessage",
+                  "default": null
+                },
+                "readOnly": true,
+                "type": "array",
+                "default": null,
+                "description": "Lista de los objetos de respuesta"
+              }
+            },
+            "type": "object",
+            "default": null,
+            "description": "Representa un objeto contenedor para una respuesta por lotes."
+          },
+          "GraphClientReceiveMessage": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "from": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Propietario y remitente del buzón del mensaje",
+                "format": "email",
+                "x-ms-summary": "De",
+                "x-ms-visibility": "important"
+              },
+              "toRecipients": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Destinatarios del mensaje",
+                "format": "email",
+                "x-ms-summary": "A",
+                "x-ms-visibility": "important"
+              },
+              "ccRecipients": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Destinatarios CC del mensaje",
+                "format": "email",
+                "x-ms-summary": "CC",
+                "x-ms-visibility": "advanced"
+              },
+              "bccRecipients": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Destinatarios CCO del mensaje",
+                "format": "email",
+                "x-ms-summary": "CCO",
+                "x-ms-visibility": "advanced"
+              },
+              "replyTo": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Las direcciones de correo electrónico que se usarán al responder",
+                "format": "email",
+                "x-ms-summary": "Responder a",
+                "x-ms-visibility": "advanced"
+              },
+              "subject": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Asunto del mensaje",
+                "x-ms-summary": "Asunto",
+                "x-ms-visibility": "important"
+              },
+              "body": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Cuerpo del mensaje",
+                "x-ms-summary": "Cuerpo",
+                "x-ms-visibility": "important"
+              },
+              "importance": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Importancia del mensaje (baja, normal, alta)",
+                "enum": [
+                  "low",
+                  "normal",
+                  "high"
+                ],
+                "x-ms-summary": "Importancia"
+              },
+              "bodyPreview": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Vista previa del mensaje",
+                "x-ms-summary": "Vista previa del cuerpo",
+                "x-ms-visibility": "advanced"
+              },
+              "hasAttachments": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "boolean",
+                "default": null,
+                "description": "Indica si el mensaje tiene datos adjuntos.",
+                "x-ms-summary": "Tiene datos adjuntos."
+              },
+              "id": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Identificador único del mensaje",
+                "x-ms-summary": "Identificador del mensaje",
+                "x-ms-visibility": "advanced"
+              },
+              "internetMessageId": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Id. de mensaje en el formato especificado por RFC2822.",
+                "x-ms-summary": "Id. de mensaje de Internet",
+                "x-ms-visibility": "advanced"
+              },
+              "conversationId": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Id. de la conversación a la que pertenece el correo electrónico",
+                "x-ms-summary": "Id. de conversación",
+                "x-ms-visibility": "advanced"
+              },
+              "receivedDateTime": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Fecha y hora de recepción del mensaje",
+                "format": "date-time",
+                "x-ms-summary": "Hora de recepción",
+                "x-ms-visibility": "advanced"
+              },
+              "isRead": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "boolean",
+                "default": null,
+                "description": "Indica si el mensaje se ha leído.",
+                "x-ms-summary": "Leído",
+                "x-ms-visibility": "advanced"
+              },
+              "attachments": {
+                "additionalProperties": null,
+                "example": null,
+                "items": {
+                  "additionalProperties": null,
+                  "example": null,
+                  "$ref": "#/definitions/GraphClientReceiveFileAttachment",
+                  "default": null
+                },
+                "type": "array",
+                "default": null,
+                "description": "Los datos adjuntos del mensaje.",
+                "x-ms-summary": "Datos adjuntos",
+                "x-ms-visibility": "advanced"
+              },
+              "isHtml": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "boolean",
+                "default": null,
+                "description": "¿Es HTML?",
+                "x-ms-summary": "Es HTML",
+                "x-ms-visibility": "advanced"
+              },
+              "sensitivityLabelInfo": {
+                "additionalProperties": null,
+                "example": null,
+                "items": {
+                  "additionalProperties": null,
+                  "example": null,
+                  "$ref": "#/definitions/sensitivityLabelMetadata",
+                  "default": null
+                },
+                "type": "array",
+                "default": null
+              }
+            },
+            "type": "object",
+            "default": null,
+            "description": "Recepción de mensajes de correo electrónico del cliente de Graph"
+          },
+          "GraphClientReceiveFileAttachment": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "id": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Id. de datos adjuntos",
+                "x-ms-summary": "Id. de datos adjuntos"
+              },
+              "name": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Nombre de datos adjuntos",
+                "x-ms-summary": "Nombre"
+              },
+              "contentBytes": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Contenido de datos adjuntos",
+                "format": "byte",
+                "x-ms-summary": "Contenido"
+              },
+              "contentType": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Tipo de contenido de datos adjuntos",
+                "x-ms-summary": "Content-Type"
+              },
+              "size": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "integer",
+                "default": null,
+                "description": "Tamaño en bytes del archivo adjunto.",
+                "format": "int64",
+                "x-ms-summary": "Tamaño"
+              },
+              "isInline": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "boolean",
+                "default": null,
+                "description": "Se establece en \"true\" si se trata de un archivo adjunto insertado.",
+                "x-ms-summary": "Insertado"
+              },
+              "lastModifiedDateTime": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Fecha y hora en que se ha modificado por última vez el archivo adjunto.",
+                "format": "date-time",
+                "x-ms-summary": "Fecha y hora de la última modificación"
+              },
+              "contentId": {
+                "additionalProperties": null,
+                "example": null,
+                "type": "string",
+                "default": null,
+                "description": "Id. de contenido",
+                "x-ms-summary": "Id. de contenido"
+              }
+            },
+            "type": "object",
+            "default": null,
+            "description": "Datos adjuntos"
+          },
+          "sensitivityLabelMetadata": {
+            "additionalProperties": null,
+            "example": null,
+            "properties": {
+              "sensitivityLabelId": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "sensitivityLabelId",
+                "type": "string",
+                "default": null,
+                "description": "Id. de SensitivityLabel.",
+                "x-ms-summary": "Id. de SensitivityLabel"
+              },
+              "name": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "nombre",
+                "type": "string",
+                "default": null,
+                "description": "Nombre de SensitivityLabel.",
+                "x-ms-summary": "nombre"
+              },
+              "displayName": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "displayName",
+                "type": "string",
+                "default": null,
+                "description": "Información de displayName de SensitivityLabel",
+                "x-ms-summary": "Información de displayName de SensitivityLabel"
+              },
+              "tooltip": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "información sobre herramientas",
+                "type": "string",
+                "default": null,
+                "description": "Detalles de SensitivityLabel en la información sobre herramientas.",
+                "x-ms-summary": "información sobre herramientas"
+              },
+              "priority": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "prioridad",
+                "type": "integer",
+                "default": null,
+                "description": "Prioridad de SensitivityLabel.",
+                "format": "int32",
+                "x-ms-summary": "prioridad de SensitivityLabel"
+              },
+              "color": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "color",
+                "type": "string",
+                "default": null,
+                "description": "Color de SensitivityLabel.",
+                "x-ms-summary": "color que se mostrará para SensitivityLabel."
+              },
+              "isEncrypted": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "isEncrypted",
+                "type": "boolean",
+                "default": null,
+                "description": " si SensitivityLabel está cifrada.",
+                "x-ms-summary": "Estado isEncrypted de SensitivityLabel"
+              },
+              "isEnabled": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "isEnabled",
+                "type": "boolean",
+                "default": null,
+                "description": "Si se ha habilitado SensitivityLabel.",
+                "x-ms-summary": "Si se ha habilitado SensitivityLabel."
+              },
+              "isParent": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "isParent",
+                "type": "boolean",
+                "default": null,
+                "description": "Si SensitivityLabel es principal.",
+                "x-ms-summary": "Si SensitivityLabel es principal"
+              },
+              "parentSensitivityLabelId": {
+                "additionalProperties": null,
+                "example": null,
+                "title": "parentSensitivityLabelId",
+                "type": "string",
+                "default": null,
+                "description": "Id. de SensitivityLabel principal.",
+                "x-ms-summary": "Id. de SensitivityLabel principal"
+              }
+            },
+            "type": "object",
+            "default": null
+          }
+        },
+        "host": "brazil-001.azure-apim.net",
+        "info": {
+          "title": "Office 365 Outlook",
+          "version": "1.0"
+        },
+        "parameters": {},
+        "paths": {
+          "/{connectionId}/v2/Mail": {
+            "post": {
+              "consumes": [
+                "application/json",
+                "text/json",
+                "application/xml",
+                "text/xml",
+                "application/x-www-form-urlencoded"
+              ],
+              "deprecated": false,
+              "description": "Esta operación envía un mensaje de correo electrónico.",
+              "externalDocs": {
+                "url": "https://docs.microsoft.com/connectors/office365/#send-an-email-(v2)"
+              },
+              "operationId": "SendEmailV2",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "connectionId",
+                  "required": true,
+                  "type": "string",
+                  "default": null,
+                  "x-ms-visibility": "internal"
+                },
+                {
+                  "in": "body",
+                  "name": "emailMessage",
+                  "required": true,
+                  "schema": {
+                    "additionalProperties": null,
+                    "example": null,
+                    "$ref": "#/definitions/ClientSendHtmlMessage",
+                    "default": null
+                  },
+                  "default": null,
+                  "description": "Correo electrónico.",
+                  "x-ms-summary": "Correo electrónico"
+                }
+              ],
+              "produces": [],
+              "responses": {
+                "200": {
+                  "description": "La operación se completó correctamente."
+                },
+                "400": {
+                  "description": "BadRequest"
+                },
+                "401": {
+                  "description": "No autorizado"
+                },
+                "403": {
+                  "description": "Prohibido"
+                },
+                "500": {
+                  "description": "Error interno del servidor"
+                },
+                "default": {
+                  "description": "Error de la operación."
+                }
+              },
+              "summary": "Enviar correo electrónico (V2)",
+              "x-ms-visibility": "important"
+            }
+          },
+          "/{connectionId}/v3/Mail": {
+            "get": {
+              "consumes": [],
+              "deprecated": false,
+              "description": "Esta operación permite obtener los correos electrónicos de una carpeta mediante las API de Graph. Tenga en cuenta que el filtrado relacionado con los campos Para, CC, Para o CC, De, Importancia, Capturar solo con los archivos adjuntos o Filtro de asunto se realiza usando los primeros 250 elementos de una carpeta de correo determinada. Para evitar esta limitación, puede usar el campo \"Consulta de búsqueda\".",
+              "externalDocs": {
+                "url": "https://docs.microsoft.com/connectors/office365/#get-emails-(v3)"
+              },
+              "operationId": "GetEmailsV3",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "connectionId",
+                  "required": true,
+                  "type": "string",
+                  "default": null,
+                  "x-ms-visibility": "internal"
+                },
+                {
+                  "x-ms-dynamic-tree": {
+                    "browse": {
+                      "itemFullTitlePath": "Path",
+                      "itemIsParent": "(IsFolder eq true)",
+                      "itemsPath": "value",
+                      "itemTitlePath": "DisplayName",
+                      "itemValuePath": "Id",
+                      "operationId": "OnFilePickerBrowse",
+                      "parameters": {
+                        "id": {
+                          "selectedItemValuePath": "Id",
+                          "value": null
+                        },
+                        "operation": {
+                          "value": "MailFolders"
+                        },
+                        "mailboxAddress": {
+                          "parameterReference": "mailboxAddress",
+                          "value": null
+                        }
+                      }
+                    },
+                    "open": {
+                      "itemFullTitlePath": "Path",
+                      "itemIsParent": "(IsFolder eq true)",
+                      "itemsPath": "value",
+                      "itemTitlePath": "DisplayName",
+                      "itemValuePath": "Id",
+                      "operationId": "OnFilePickerOpen",
+                      "parameters": {
+                        "operation": {
+                          "value": "MailFolders"
+                        },
+                        "mailboxAddress": {
+                          "parameterReference": "mailboxAddress",
+                          "value": null
+                        }
+                      }
+                    },
+                    "settings": {
+                      "canSelectLeafNodes": false,
+                      "canSelectParentNodes": true
+                    }
+                  },
+                  "in": "query",
+                  "name": "folderPath",
+                  "required": false,
+                  "type": "string",
+                  "default": "Inbox",
+                  "description": "Carpeta de correo de la que se recuperarán correos electrónicos (valor predeterminado: \"Bandeja de entrada\").",
+                  "x-ms-summary": "Carpeta",
+                  "x-ms-name-for-model": "get_emails_v3_folder_path",
+                  "x-ms-description-for-model": "Set to the specific mail folder to get the emails from. Defaults to 'Inbox' if not specified. Examples: \"Inbox\"; \"Sent Items\"; \"Archive\"."
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "to",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Direcciones de correo electrónico de los destinatarios separadas por punto y coma (si alguna coincide, se ejecutará el desencadenador).",
+                  "format": "email",
+                  "x-ms-summary": "A",
+                  "x-ms-name-for-model": "get_emails_v3_to",
+                  "x-ms-description-for-model": "Set to specific email addresses to filter by recipients. Separate multiple emails with semicolons to match any of them (OR logic). MUST be email(s) not raw name(s). Examples: \"me@example.com\"."
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "cc",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Direcciones de correo electrónico de los destinatarios CC separadas por punto y coma (si alguna coincide, se ejecutará el desencadenador).",
+                  "format": "email",
+                  "x-ms-summary": "CC",
+                  "x-ms-visibility": "advanced",
+                  "x-ms-name-for-model": "get_emails_v3_cc",
+                  "x-ms-description-for-model": "Set to specific email addresses to filter by CC recipients. Separate multiple emails with semicolons to match any of them (OR logic). MUST be email(s) not raw name(s). Examples:\"team-lead@example.com;vp@example.com\""
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "toOrCc",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Direcciones de correo electrónico de los destinatarios Para o CC separadas por punto y coma (si alguna coincide, se ejecutará el desencadenador).",
+                  "format": "email",
+                  "x-ms-summary": "Para o CC",
+                  "x-ms-visibility": "advanced",
+                  "x-ms-name-for-model": "get_emails_v3_to_or_cc",
+                  "x-ms-description-for-model": "Set to specific email addresses to filter by To or CC recipients combined. Separate multiple emails with semicolons to match any of them (OR logic). MUST be email(s) not raw name(s).Examples: \"legal@example.com;finance@example.com\""
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "from",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Direcciones de correo electrónico de los remitentes separadas por punto y coma (si alguna coincide, se ejecutará el desencadenador).",
+                  "format": "email",
+                  "x-ms-summary": "De",
+                  "x-ms-name-for-model": "get_emails_v3_from",
+                  "x-ms-description-for-model": "Set to specific email addresses to filter by sender. Separate multiple emails with semicolons to match any of them using (OR logic). MUST be email(s) not raw name(s). Examples: \"notifications@partner.com;alerts@partner.com\""
+                },
+                {
+                  "in": "query",
+                  "name": "importance",
+                  "required": false,
+                  "type": "string",
+                  "default": "Any",
+                  "description": "Importancia del correo electrónico (Any, High, Normal, Low).",
+                  "enum": [
+                    "Any",
+                    "Low",
+                    "Normal",
+                    "High"
+                  ],
+                  "x-ms-summary": "Importancia",
+                  "x-ms-visibility": "advanced",
+                  "x-ms-name-for-model": "get_emails_v3_importance",
+                  "x-ms-description-for-model": "Set to a priority level to filter by importance. Choose between ONLY \"High\", \"Normal\", \"Low\", or \"Any\"."
+                },
+                {
+                  "in": "query",
+                  "name": "fetchOnlyWithAttachment",
+                  "required": false,
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Si se establece en True, solo se recuperarán los correos electrónicos con datos adjuntos. Se omitirán los correos electrónicos sin datos adjuntos. Si se establece en False, se recuperarán todos los correos electrónicos.",
+                  "x-ms-summary": "Solo con datos adjuntos",
+                  "x-ms-visibility": "advanced",
+                  "x-ms-name-for-model": "get_emails_v3_fetch_only_with_attachment",
+                  "x-ms-description-for-model": "Set to true to retrieve only emails with attachments, otherwise false. Must ONLY either be true or false."
+                },
+                {
+                  "in": "query",
+                  "name": "subjectFilter",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Cadena que se buscará en la línea de asunto.",
+                  "x-ms-summary": "Filtro de asunto",
+                  "x-ms-visibility": "advanced",
+                  "x-ms-name-for-model": "get_emails_v3_subject_filter",
+                  "x-ms-description-for-model": "Set to string to filter for emails where the subject line contains this specific matching text. Example: \"Urgent\"."
+                },
+                {
+                  "in": "query",
+                  "name": "fetchOnlyUnread",
+                  "required": false,
+                  "type": "boolean",
+                  "default": true,
+                  "description": "¿Quiere recuperar solo los correos electrónicos no leídos?",
+                  "x-ms-summary": "Acceder solo a los mensajes no leídos",
+                  "x-ms-name-for-model": "get_emails_v3_fetch_only_unread",
+                  "x-ms-description-for-model": "Set to true to filter for unread emails only, otherwise set to false to search all emails. Must ONLY either be true or false."
+                },
+                {
+                  "in": "query",
+                  "name": "fetchOnlyFlagged",
+                  "required": false,
+                  "type": "boolean",
+                  "default": false,
+                  "description": "¿Quiere recuperar solo los correos electrónicos marcados?",
+                  "x-ms-summary": "Capturar solo los mensajes marcados",
+                  "x-ms-visibility": "internal"
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "mailboxAddress",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Dirección del buzón compartido desde el que se recuperarán los correos.",
+                  "x-ms-summary": "Dirección de buzón original",
+                  "x-ms-name-for-model": "get_emails_v3_mailbox_address",
+                  "x-ms-description-for-model": "Set this to a shared mailbox email address if the user asks for things like 'search in,' 'look inside,' or 'check' a shared mailbox. DO NOT use this for the sender of the email (e.g., 'emails from x')."
+                },
+                {
+                  "in": "query",
+                  "name": "includeAttachments",
+                  "required": false,
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Si se establece en true, también se recuperará el contenido de los datos adjuntos junto con el correo electrónico.",
+                  "x-ms-summary": "Incluir datos adjuntos",
+                  "x-ms-name-for-model": "get_emails_v3_include_attachments",
+                  "x-ms-description-for-model": "Set to true to retrieve actual attachment content when getting emails, otherwise false. Must ONLY either be true or false"
+                },
+                {
+                  "in": "query",
+                  "name": "searchQuery",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Consulta de búsqueda para filtrar correos electrónicos. Para saber cómo se usa el parámetro \"$search\", consulte https://docs.microsoft.com/graph/query-parameters#search-parameter.",
+                  "x-ms-summary": "Consulta de búsqueda",
+                  "x-ms-name-for-model": "get_emails_v3_search_query",
+                  "x-ms-description-for-model": "Set to a KQL search string to filter emails. Examples: \"subject:planning AND from:alice\"; \"body:budget\""
+                },
+                {
+                  "in": "query",
+                  "name": "top",
+                  "required": false,
+                  "type": "integer",
+                  "default": 10,
+                  "description": "Número de correos electrónicos que se recuperarán (valor predeterminado: 10, máx.: 1000).",
+                  "format": "int32",
+                  "maximum": 1000.0,
+                  "x-ms-summary": "Superior",
+                  "x-ms-name-for-model": "get_emails_v3_top",
+                  "x-ms-description-for-model": "Set to an integer to limit the number of emails returned. Max value is 1000. If user asks for 'all' or 'every', set to 1000"
+                }
+              ],
+              "produces": [
+                "application/json",
+                "text/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "La operación se completó correctamente.",
+                  "schema": {
+                    "additionalProperties": null,
+                    "example": null,
+                    "$ref": "#/definitions/BatchResponse[GraphClientReceiveMessage]",
+                    "default": null
+                  }
+                },
+                "400": {
+                  "description": "BadRequest"
+                },
+                "401": {
+                  "description": "No autorizado"
+                },
+                "403": {
+                  "description": "Prohibido"
+                },
+                "500": {
+                  "description": "Error interno del servidor"
+                },
+                "default": {
+                  "description": "Error de la operación."
+                }
+              },
+              "summary": "Obtener correos electrónicos (V3)",
+              "x-ms-visibility": "advanced"
+            }
+          },
+          "/{connectionId}/v2/Mail/Move/{messageId}": {
+            "post": {
+              "consumes": [],
+              "deprecated": false,
+              "description": "Esta operación mueve un correo electrónico a la carpeta especificada del mismo buzón.",
+              "externalDocs": {
+                "url": "https://docs.microsoft.com/connectors/office365/#move-email-(v2)"
+              },
+              "operationId": "MoveV2",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "connectionId",
+                  "required": true,
+                  "type": "string",
+                  "default": null,
+                  "x-ms-visibility": "internal"
+                },
+                {
+                  "in": "path",
+                  "name": "messageId",
+                  "required": true,
+                  "type": "string",
+                  "default": null,
+                  "description": "Id. del correo electrónico que se moverá.",
+                  "x-ms-summary": "Identificador del mensaje"
+                },
+                {
+                  "x-ms-dynamic-tree": {
+                    "browse": {
+                      "itemFullTitlePath": "Path",
+                      "itemIsParent": "(IsFolder eq true)",
+                      "itemsPath": "value",
+                      "itemTitlePath": "DisplayName",
+                      "itemValuePath": "Id",
+                      "operationId": "OnFilePickerBrowse",
+                      "parameters": {
+                        "id": {
+                          "selectedItemValuePath": "Id",
+                          "value": null
+                        },
+                        "operation": {
+                          "value": "MailFolders"
+                        },
+                        "mailboxAddress": {
+                          "parameterReference": "mailboxAddress",
+                          "value": null
+                        }
+                      }
+                    },
+                    "open": {
+                      "itemFullTitlePath": "Path",
+                      "itemIsParent": "(IsFolder eq true)",
+                      "itemsPath": "value",
+                      "itemTitlePath": "DisplayName",
+                      "itemValuePath": "Id",
+                      "operationId": "OnFilePickerOpen",
+                      "parameters": {
+                        "operation": {
+                          "value": "MailFolders"
+                        },
+                        "mailboxAddress": {
+                          "parameterReference": "mailboxAddress",
+                          "value": null
+                        }
+                      }
+                    },
+                    "settings": {
+                      "canSelectLeafNodes": false,
+                      "canSelectParentNodes": true
+                    }
+                  },
+                  "in": "query",
+                  "name": "folderPath",
+                  "required": true,
+                  "type": "string",
+                  "default": null,
+                  "description": "Carpeta de correo a la que se va a mover el correo electrónico.",
+                  "x-ms-summary": "Carpeta"
+                },
+                {
+                  "x-ms-dynamic-list": {
+                    "builtInOperation": "AadGraph.GetUsers",
+                    "itemValuePath": "mail",
+                    "parameters": {}
+                  },
+                  "in": "query",
+                  "name": "mailboxAddress",
+                  "required": false,
+                  "type": "string",
+                  "default": null,
+                  "description": "Dirección del buzón compartido desde el que se moverá el buzón.",
+                  "x-ms-summary": "Dirección de buzón original"
+                }
+              ],
+              "produces": [
+                "application/json",
+                "text/json",
+                "application/xml",
+                "text/xml"
+              ],
+              "responses": {
+                "200": {
+                  "description": "La operación se completó correctamente.",
+                  "schema": {
+                    "additionalProperties": null,
+                    "example": null,
+                    "$ref": "#/definitions/GraphClientReceiveMessage",
+                    "default": null
+                  }
+                },
+                "400": {
+                  "description": "BadRequest"
+                },
+                "401": {
+                  "description": "No autorizado"
+                },
+                "403": {
+                  "description": "Prohibido"
+                },
+                "500": {
+                  "description": "Error interno del servidor"
+                },
+                "default": {
+                  "description": "Error de la operación."
+                }
+              },
+              "summary": "Mover correo electrónico (V2)",
+              "x-ms-visibility": "advanced"
+            }
+          }
+        },
+        "responses": {},
+        "schemes": [
+          "https"
+        ],
+        "swagger": "2.0"
+      },
+      "Tier": 0
+    }
+  },
+  "DynamicSchemas": {},
+  "Locale": "es-PE"
+}
